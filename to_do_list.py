@@ -4,38 +4,44 @@ import pdb;
 
 class Task:
     def __init__(self,name,isCompleted):
-        self.isCompleted =False
+        self.isCompleted =isCompleted
         self.name = name
 
     def markComplete(self):
         self.isCompleted = True;
        
 
-def viewTask(taskList,state):
-    if(taskList != []):
+class TaskList:
+    def __init__(self):
+        self.taskList = []
+        
+    
+    def addTask(self,name):
+        task = Task(name,False)
+        self.taskList.append(task)
 
-        tasks = [task.name for task in taskList if task.isCompleted == state]
-        for completed in tasks:
-            print(completed)
-    else:
-        print("\nNo tasks to be viewed")
+    def removeTask(self,name):
+        flag =0;
+        for task in self.taskList:
+            if task.name == name:
+                task.markComplete()
+                flag = 1;
+                break;
+        if flag==0:
+            print("\n No such task exist. Please enter correct task name")
 
-def addTask(taskList):
-    name = input("\nEnter task for to do list: ")
-    task = Task(name,False)
-    taskList.append(task)
+    def viewTask(self,state):
+        if(self.taskList != []):
+        
+            tasks = [task.name for task in self.taskList if task.isCompleted == state]
+            for completed in tasks:
+                print(completed)
+        else:
+            print("\nNo tasks to be viewed")
 
-def removeTask(taskList):
-    viewTask(taskList,False);
-    name = input("\nEnter task to be marked as complete from the list: ")
-    flag =0;
-    for task in taskList:
-        if task.name == name:
-            task.markComplete()
-            flag = 1;
-            break;
-    if flag==0:
-        print("\n No such task exist. Please enter correct task name")
+
+
+
 
 
 def _main_():
@@ -49,7 +55,7 @@ def _main_():
         5. Exit application
     """
 
-    taskList = []
+    taskList = TaskList()
     
     
     
@@ -58,20 +64,23 @@ def _main_():
         chosen = int(input("Enter yout choice number: "))
         
         if(chosen == 1):
-            addTask(taskList);
+            task = input("\nEnter task for to do list: ")
+            taskList.addTask(task)
 
         elif(chosen == 2):
             #pdb.set_trace();
-            removeTask(taskList)
+            taskList.viewTask(False);
+            task = input("\nEnter task to be marked as complete from the list: ")
+            taskList.removeTask(task)
             
             
         elif(chosen == 3):
             print("-----To Do List------")
-            viewTask(taskList,False);
+            taskList.viewTask(False);
        
         elif(chosen == 4):
             print("-----Completed task list------")
-            viewTask(taskList,True);
+            taskList.viewTask(True);
 
         elif(chosen == 5):
             break;
