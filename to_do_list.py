@@ -21,19 +21,20 @@ class TaskList:
         self.taskList.append(task)
 
     def removeTask(self,name):
-        flag =0;
+        completed =0;
         for task in self.taskList:
             if task.name == name:
                 task.markComplete()
-                flag = 1;
+                completed = 1;
                 break;
-        if flag==0:
+        if completed==0:
             print("\n No such task exist. Please enter correct task name")
 
     def viewTask(self,state):
-        if(self.taskList != []):
         
-            tasks = [task.name for task in self.taskList if task.isCompleted == state]
+        tasks = [task.name for task in self.taskList if task.isCompleted == state]
+        
+        if(len(tasks) > 0):
             for completed in tasks:
                 print(completed)
         else:
