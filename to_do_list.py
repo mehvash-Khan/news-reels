@@ -1,7 +1,5 @@
 import pdb;
 
-
-
 class Task:
     def __init__(self,name,isCompleted):
         self.isCompleted =isCompleted
@@ -15,7 +13,6 @@ class TaskList:
     def __init__(self):
         self.taskList = []
         
-    
     def addTask(self,name):
         task = Task(name,False)
         self.taskList.append(task)
@@ -31,9 +28,7 @@ class TaskList:
             print("\n No such task exist. Please enter correct task name")
 
     def viewTask(self,state):
-        
         tasks = [task.name for task in self.taskList if task.isCompleted == state]
-        
         if(len(tasks) > 0):
             for completed in tasks:
                 print(completed)
